@@ -6,7 +6,6 @@ import { graphql } from 'gatsby'
 const Callback = ({ data: { page } }) => {
     console.log('handleAuthentication: ', handleAuthentication());
 
-
     handleAuthentication()
 
     return <p>Loading...</p>

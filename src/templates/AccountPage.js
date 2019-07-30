@@ -2,8 +2,6 @@ import React from 'react'
 import { graphql } from 'gatsby'
 import { login, logout, isAuthenticated, getProfile } from "../utils/auth"
 import PageHeader from '../components/PageHeader'
-// import Content from '../components/Content'
-// import GoogleMap from '../components/GoogleMap'
 import Layout from '../components/Layout'
 
 
@@ -28,8 +26,6 @@ export const AccountPageTemplate = ({
 
 const AccountPage = ({ data: { page } }) => {
   if (!isAuthenticated()) {
-
-    console.log('why this is working?: ', login());
     
     login()
     return <p>Redirecting to login...</p>
@@ -38,7 +34,6 @@ const AccountPage = ({ data: { page } }) => {
   const user = getProfile()
   console.log('user: ', user);
   
-
   return (
     <Layout
       meta={page.frontmatter.meta || false}
