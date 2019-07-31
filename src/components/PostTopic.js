@@ -11,6 +11,9 @@ import {
     getCurrentUser,
   } from "./../stitch/authentication";
 
+  import { isAuthenticated, getProfile } from "../utils/auth"
+
+
 
 function callMe() {
     // loginAnonymous();
@@ -52,18 +55,10 @@ class PostTopic extends Component {
     this.state.stitch = Stitch.hasAppClient(APP_ID)
     ? Stitch.getAppClient(APP_ID)
     : Stitch.initializeAppClient(APP_ID);
-    }
-    
-    // displayTodos() {
-    //   this.db
-    //     .collection("topic")
-    //     .find({}, { limit: 1000 })
-    //     .asArray()
-    //     .then(todos => {
-    //       this.setState({todos});
-    //     });
-    //  }
 
+    
+    
+    }
 
     createTopic = (event) => {
       loginAnonymous();
@@ -73,23 +68,39 @@ class PostTopic extends Component {
       console.log(this.state)
       console.log('this.stitch: ', this.state.stitch);
       console.log('user: ', user);
+      console.log('isAuthenticated: ', isAuthenticated());
+      console.log('getProfile : ', getProfile());
       
-
       
       const mongodb = this.state.stitch.getServiceClient(
         RemoteMongoClient.factory,
         "mongodb-atlas"
       );
 
-        let db = mongodb.db("forum").collection("topic");
-        console.log('db: ', db);
+        let titleDB = mongodb.db("forum").collection("title");
+        let questionDB = mongodb.db("forum").collection("question");
+        let topicDB = mongodb.db("forum").collection("topic");
+        console.log('db: ', titleDB);
         console.log('this.state.stitch.auth.user.id: ', this.state.stitch.auth.user.id);
         
         
-        db.insertOne({
+        titleDB.insertOne({
             owner_id: this.state.stitch.auth.user.id,
             title: this.state.title,
-            question: this.state.question
+            })
+            .then(console.log('success save'))
+            .catch(console.error);
+
+        questionDB.insertOne({
+            owner_id: this.state.stitch.auth.user.id,
+            question: this.state.question,
+            })
+            .then(console.log('success save'))
+            .catch(console.error);
+
+        topicDB.insertOne({
+            owner_id: this.state.stitch.auth.user.id,
+            topic: { title: this.state.title, question: this.state.question }
             })
             .then(console.log('success save'))
             .catch(console.error);
