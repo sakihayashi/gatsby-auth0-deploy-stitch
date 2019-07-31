@@ -127,7 +127,7 @@ exports.onCreateWebpackConfig = ({ stage, loaders, actions }) => {
       module: {
           rules: [
           {
-              test: /auth0-js/,
+              test: [/auth0-js/, /mongodb-stitch-browser-sdk/],
               use: loaders.null(),
           },
           ],
