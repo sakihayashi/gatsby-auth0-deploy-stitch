@@ -3,7 +3,7 @@ import Helmet from 'react-helmet'
 import { stringify } from 'qs'
 import { serialize } from 'dom-form-serializer'
 import Recaptcha from 'react-google-recaptcha'
-import { Stitch, UserPasswordAuthProviderClient } from "mongodb-stitch-browser-sdk";
+import { UserPasswordAuthProviderClient } from "mongodb-stitch-browser-sdk";
 import app from '../stitch/app'
 
 import './Form.css'
