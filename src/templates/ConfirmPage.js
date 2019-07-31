@@ -1,10 +1,9 @@
 import React from 'react'
 import { graphql } from 'gatsby'
-import { UserPasswordAuthProviderClient } from "mongodb-stitch-browser-sdk";
-import app from '../stitch/app'
 
 import PageHeader from '../components/PageHeader'
 import Layout from '../components/Layout'
+import CallbackPiece from '../components/CallbackPiece'
 
 // function handleCallback() {
 //   const url = window.location.search;
@@ -36,33 +35,20 @@ export const ConfirmPageTemplate = ({
   </main>
 )
 
-class ConfirmPage extends Component {
-  
-  componentDidMount() {
-    const url = window.location.search;
-    const params = new URLSearchParams(url);
-    const token = params.get('token');
-    const tokenId = params.get('tokenId');
 
-    const emailPassClient = app.auth
-      .getProviderClient(UserPasswordAuthProviderClient.factory);
 
-    emailPassClient.confirmUser(token, tokenId);
-  }
-  
-
-render() {
-    return (
-      <Layout
-      meta={page.frontmatter.meta || false}
-      title={page.frontmatter.title || false}
-      >
-        <ConfirmPageTemplate {...page.frontmatter} body={page.html} />
-      </Layout>
-    );
-  }
-}
-export default ConfirmPage;
+const ConfirmPage = ({ data: { page } }) => (
+      <React.Fragment>
+        <CallbackPiece />
+        <Layout
+        meta={page.frontmatter.meta || false}
+        title={page.frontmatter.title || false}
+        >
+          <ConfirmPageTemplate {...page.frontmatter} body={page.html} />
+        </Layout>
+      </React.Fragment>
+)
+export default ConfirmPage
 
 // const ConfirmPage = ({ data: { page } }) => {
 
@@ -95,11 +81,6 @@ export const pageQuery = graphql`
         address
         phone
         email
-        locations {
-          mapLink
-          lat
-          lng
-        }
       }
     }
   }
