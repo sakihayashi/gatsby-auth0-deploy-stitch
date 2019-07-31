@@ -13,17 +13,16 @@ import {
 
 
 function callMe() {
-    let APP_ID = "forumtopic-wuzgl";
-    loginAnonymous();
+    // loginAnonymous();
     // this.app = Stitch.initializeDefaultAppClient(this.APP_ID);
     // Get a MongoDB Service Client
     // This is used for logging in and communicating with Stitch
-    const appDefault = Stitch.hasAppClient(APP_ID)
-  ? Stitch.getAppClient(APP_ID)
-  : Stitch.initializeAppClient(APP_ID);
+//     const appDefault = Stitch.hasAppClient(APP_ID)
+//   ? Stitch.getAppClient(APP_ID)
+//   : Stitch.initializeAppClient(APP_ID);
   
-  console.log('app from stitch folder: ', appDefault);
-  return appDefault
+//   console.log('app from stitch folder: ', appDefault);
+//   return appDefault
 
 }
 
@@ -40,20 +39,19 @@ class PostTopic extends Component {
     //   this.handleChange = this.handleChange.bind(this);
     //   this.displayTodos = this.displayTodos.bind(this);
     //   this.addTodo = this.addTodo.bind(this);
-    this.state.stitch = callMe();
+    // this.state.stitch = callMe();
     }
     
-    // componentDidMount() {
+    componentDidMount() {
         
-      // Initialize the App Client
-    //   this.client = Stitch.initializeDefaultAppClient("YOUR_APP_ID");
-      // Get a MongoDB Service Client
-      // This is used for logging in and communicating with Stitch
-      
-      // Get a reference to the todo database
-    //   this.db = mongodb.db("forum");
-    //   this.displayTodosOnLoad();
-    // }
+    //   Initialize the App Client
+    let APP_ID = "forumtopic-wuzgl";
+
+    // this.state.stitch = Stitch.initializeDefaultAppClient(APP_ID);
+    this.state.stitch = Stitch.hasAppClient(APP_ID)
+    ? Stitch.getAppClient(APP_ID)
+    : Stitch.initializeAppClient(APP_ID);
+    }
     
     // displayTodos() {
     //   this.db
@@ -65,14 +63,9 @@ class PostTopic extends Component {
     //     });
     //  }
 
-    // displayTodosOnLoad() {
-    //   this.client.auth
-    //     .loginWithCredential(new AnonymousCredential())
-    //     .then(this.displayTodos)
-    //     .catch(console.error);
-    // }
 
     createTopic = (event) => {
+      loginAnonymous();
       event.preventDefault();
 
       console.log(this.state)
@@ -124,6 +117,16 @@ class PostTopic extends Component {
                 type="text"
                 // value={this.state.value}
                 name="topic"
+                placeholder="topic"
+                onChange={this.handleInput}
+              />
+            </label>
+            <label>
+              <input
+                type="text"
+                // value={this.state.value}
+                name="topic"
+                placeholder="topic"
                 onChange={this.handleInput}
               />
             </label>
