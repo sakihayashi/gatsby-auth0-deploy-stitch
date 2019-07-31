@@ -120,7 +120,7 @@ class FormForum extends React.Component {
 
         </Helmet>
 
-        <label className="Form--Label">
+        {/* <label className="Form--Label">
             <input
             className="Form--Input Form--InputText"
             type="text"
@@ -147,7 +147,7 @@ class FormForum extends React.Component {
         onClick={this.handleSignUp}
         >
                 Log In
-        </button>
+        </button> */}
 
         <form
           className="Form"

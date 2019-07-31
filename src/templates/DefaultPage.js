@@ -6,7 +6,8 @@ import Content from '../components/Content'
 import Layout from '../components/Layout'
 import SVGIcon from '../components/SVGIcon'
 
-import FormForum from '../components/FormForum'
+// import FormForum from '../components/FormForum'
+import PostTopic from '../components/PostTopic';
 
 // Export Template for use in CMS preview
 export const DefaultPageTemplate = ({
@@ -23,7 +24,8 @@ export const DefaultPageTemplate = ({
     />
     <section className="section">
       <div className="container">
-        <FormForum />
+        {/* <FormForum /> */}
+        <PostTopic />
       </div>
     </section>
     <section className="section">
