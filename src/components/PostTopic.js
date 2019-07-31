@@ -31,7 +31,8 @@ class PostTopic extends Component {
     constructor() {
       super();
       this.state = {
-        topic: "",
+        title: "",
+        question: "",
         user_id: "",
         value: "",
         stitch: null
@@ -66,10 +67,12 @@ class PostTopic extends Component {
 
     createTopic = (event) => {
       loginAnonymous();
+      let user = getCurrentUser();
       event.preventDefault();
 
       console.log(this.state)
       console.log('this.stitch: ', this.state.stitch);
+      console.log('user: ', user);
       
 
       
@@ -85,7 +88,8 @@ class PostTopic extends Component {
         
         db.insertOne({
             owner_id: this.state.stitch.auth.user.id,
-            topic: this.state.topic
+            title: this.state.title,
+            question: this.state.question
             })
             .then(console.log('success save'))
             .catch(console.error);
@@ -108,7 +112,7 @@ class PostTopic extends Component {
   render() {
       return (
         <div className="App">
-          <h3>This is a todo app</h3>
+          <h3>Create a topic</h3>
           <hr />
           <p>Add a Topic:</p>
           <form onSubmit={this.createTopic}>
@@ -116,8 +120,8 @@ class PostTopic extends Component {
               <input
                 type="text"
                 // value={this.state.value}
-                name="topic"
-                placeholder="topic"
+                name="title"
+                placeholder="title"
                 onChange={this.handleInput}
               />
             </label>
@@ -125,8 +129,8 @@ class PostTopic extends Component {
               <input
                 type="text"
                 // value={this.state.value}
-                name="topic"
-                placeholder="topic"
+                name="question"
+                placeholder="write question here"
                 onChange={this.handleInput}
               />
             </label>
