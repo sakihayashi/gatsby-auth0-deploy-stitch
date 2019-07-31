@@ -1,13 +1,23 @@
 import { Stitch } from "mongodb-stitch-browser-sdk";
+import { Component } from "react";
 
-// TODO: Add your Stitch app's App ID
-const APP_ID = "forumtopic-wuzgl";
+class app extends Component{
 
-// TODO: Initialize the app client
-// const app = Stitch.hasAppClient(APP_ID)
-//   ? Stitch.getAppClient(APP_ID)
-//   : Stitch.initializeAppClient(APP_ID);
+  componentDidMount() {
+    // Initialize the App Client
+    this.APP_ID = "forumtopic-wuzgl";
+    this.app = Stitch.initializeDefaultAppClient(this.APP_ID);
+    // Get a MongoDB Service Client
+    // This is used for logging in and communicating with Stitch
+    const app = Stitch.hasAppClient(this.APP_ID)
+  ? Stitch.getAppClient(this.APP_ID)
+  : Stitch.initializeAppClient(this.APP_ID);
 
-const app = Stitch.initializeAppClient(APP_ID);
+  return app
+  }
 
-export { app };
+}
+
+
+
+export default app

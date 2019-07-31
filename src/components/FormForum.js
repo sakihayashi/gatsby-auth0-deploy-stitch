@@ -4,7 +4,7 @@ import { stringify } from 'qs'
 import { serialize } from 'dom-form-serializer'
 import Recaptcha from 'react-google-recaptcha'
 import { Stitch, UserPasswordAuthProviderClient } from "mongodb-stitch-browser-sdk";
-import { app } from '../stitch/app'
+import app from '../stitch/app'
 
 import './Form.css'
 
@@ -49,7 +49,7 @@ class FormForum extends React.Component {
   handleSignUp = () => {
     console.log('inside handleSignup this.state: ', this.state);
     
-    const emailPassClient = app.auth
+    const emailPassClient = App.auth
         .getProviderClient(UserPasswordAuthProviderClient.factory);
 
         emailPassClient.registerWithEmail(this.state.emailSignUp, this.state.passwordSignUp)
