@@ -49,7 +49,7 @@ class FormForum extends React.Component {
   handleSignUp = () => {
     console.log('inside handleSignup this.state: ', this.state);
     
-    const emailPassClient = App.auth
+    const emailPassClient = app.auth
         .getProviderClient(UserPasswordAuthProviderClient.factory);
 
         emailPassClient.registerWithEmail(this.state.emailSignUp, this.state.passwordSignUp)

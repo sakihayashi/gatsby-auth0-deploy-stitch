@@ -1,4 +1,4 @@
-<!-- ---
+---
 template: ConfirmPage
 slug: confirmation
 title: Thank you!
@@ -7,4 +7,4 @@ subtitle: ユーザー情報
 meta:
   description: Please log in to complete registration
   title: Please log in to complete registration
---- -->
+---
