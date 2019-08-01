@@ -8,7 +8,7 @@ import Layout from '../components/Layout'
 // import FormForum from '../components/FormForum'
 import PostTopic from '../components/PostTopic';
 import TopicDigest from '../components/TopicDigest';
-
+import { isAuthenticated } from "../utils/auth"
 
 
 // Export Template for use in CMS preview
@@ -17,10 +17,12 @@ export const DefaultPageTemplate = ({
   subtitle,
   featuredImage,
   topics,
-  body
+  body,
+  
 }) => {
 
-  console.log('topics: ', topics);  
+  console.log('topics: ', topics); 
+  console.log('isAuthenticated(): ', isAuthenticated());   
 
   let topicArray = topics.edges.map((topic) => {
        
@@ -39,7 +41,7 @@ export const DefaultPageTemplate = ({
         <section className="section">
           <div className="container">
             {/* <FormForum /> */}
-            <PostTopic />
+            {isAuthenticated()? <PostTopic /> : <div>Please log in to create a topic </div> }
           </div>
         </section>
 

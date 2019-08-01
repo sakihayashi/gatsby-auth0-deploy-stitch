@@ -6,9 +6,11 @@ const isBrowser = typeof window !== "undefined"
 const auth = isBrowser
   ? new auth0.WebAuth({
       domain: "dev-ln17jny1.auth0.com",
+      //localhost
+      // clientID: "5WIZhElj301qBqdnhrJIGFrl9XF0p5d1",
       clientID: "qdt1PFUT4yPBAdMJ0HknYSOrbu7CtWTp",
+      // redirectUri: "http://localhost:8000/callback",
       redirectUri: "https://eager-panini-7c38e7.netlify.com/callback",
-      // redirectUri: "https://eager-panini-7c38e7.netlify.com/callback",
       responseType: "token id_token",
       scope: "openid profile email",
     })

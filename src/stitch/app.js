@@ -13,7 +13,7 @@ class StitchApp extends Component{
     const appDefault = Stitch.hasAppClient(this.APP_ID)
   ? Stitch.getAppClient(this.APP_ID)
   : Stitch.initializeAppClient(this.APP_ID);
-  
+
   console.log('app from stitch folder: ', appDefault);
   
 

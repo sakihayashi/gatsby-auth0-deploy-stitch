@@ -5,9 +5,7 @@ import {
 import { Stitch } from "mongodb-stitch-browser-sdk";
 
 import {
-    hasLoggedInUser,
     loginAnonymous,
-    logoutCurrentUser,
     getCurrentUser,
   } from "./../stitch/authentication";
 
@@ -23,7 +21,8 @@ class PostTopic extends Component {
         question: "",
         user_id: "",
         value: "",
-        stitch: null
+        stitch: null,
+        alert: ''
       };
   
     }
@@ -37,16 +36,15 @@ class PostTopic extends Component {
     this.state.stitch = Stitch.hasAppClient(APP_ID)
     ? Stitch.getAppClient(APP_ID)
     : Stitch.initializeAppClient(APP_ID);
-
-    
     
     }
 
-    createTopic = (event) => {
+    createTopic = (e) => {
       loginAnonymous();
       let user = getCurrentUser();
       let userAuth0 = getProfile();
-      event.preventDefault();
+      e.preventDefault();
+      const form = e.target
 
       console.log('this.stitch: ', this.state.stitch);
       console.log('user: ', user);
@@ -72,13 +70,16 @@ class PostTopic extends Component {
           };
    
         topicDB.insertOne(newTopic)
-            .then(console.log('success save'))
+            .then(() => {
+                form.reset()
+                this.setState({
+                  alert: 'フォーラムトピックが作成されました',
+                })
+              })
             .catch(console.error);
     }
 
-    // handleInput(event) {
-    //   this.setState({ value: event.target.value });
-    // }
+
 
     handleInput = (event) => {
         console.log('this.state: ', this.state);
@@ -96,6 +97,9 @@ class PostTopic extends Component {
           <h3>Create a topic</h3>
           <hr />
           <form onSubmit={this.createTopic}　className="Form">
+          {this.state.alert && (
+            <div className="Form--Alert">{this.state.alert}</div>
+          )}
             <label　className="Form--Label">
               <input
                 type="text"
