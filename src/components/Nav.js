@@ -58,7 +58,7 @@ export class Navigation extends Component {
                   e.preventDefault()
                 }}
               >
-                Log Out
+                {' '}Log Out
               </a></p> 
         )
       }else{
@@ -115,7 +115,7 @@ export class Navigation extends Component {
                 ))}
               </div>
             </div>
-            <NavLink to="/default/">Default</NavLink>
+            <NavLink to="/forum/">forum</NavLink>
             <NavLink to="/contact/">Contact</NavLink>
           </div>
           <button

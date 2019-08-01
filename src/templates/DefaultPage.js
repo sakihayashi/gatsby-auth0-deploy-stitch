@@ -4,45 +4,70 @@ import { graphql } from 'gatsby'
 import PageHeader from '../components/PageHeader'
 import Content from '../components/Content'
 import Layout from '../components/Layout'
-import SVGIcon from '../components/SVGIcon'
 
 // import FormForum from '../components/FormForum'
 import PostTopic from '../components/PostTopic';
+import TopicDigest from '../components/TopicDigest';
+
+
 
 // Export Template for use in CMS preview
 export const DefaultPageTemplate = ({
   title,
   subtitle,
   featuredImage,
+  topics,
   body
-}) => (
-  <main className="DefaultPage">
-    <PageHeader
-      title={title}
-      subtitle={subtitle}
-      backgroundImage={featuredImage}
-    />
-    <section className="section">
-      <div className="container">
-        {/* <FormForum /> */}
-        <PostTopic />
-      </div>
-    </section>
-    <section className="section">
-      <div className="container">
-        <Content source={body} />
-        <SVGIcon src="/images/calendar.svg" />
-      </div>
-    </section>
-  </main>
-)
+}) => {
 
-const DefaultPage = ({ data: { page } }) => (
+  console.log('topics: ', topics);  
+
+  let topicArray = topics.edges.map((topic) => {
+       
+    return (
+      <TopicDigest {...topic}/>
+    )
+  })
+
+      return (
+      <main className="DefaultPage">
+        <PageHeader
+          title={title}
+          subtitle={subtitle}
+          backgroundImage={featuredImage}
+        />
+        <section className="section">
+          <div className="container">
+            {/* <FormForum /> */}
+            <PostTopic />
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <h3><strong>最新のトピック</strong></h3><br />
+            
+          <ul className="post-list">{topicArray}</ul>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="container">
+            <Content source={body} />
+          </div>
+        </section>
+      </main>
+    )
+  }
+
+const DefaultPage = ({ data: { page, topics } }) => (
   <Layout
     meta={page.frontmatter.meta || false}
     title={page.frontmatter.title || false}
   >
-    <DefaultPageTemplate {...page.frontmatter} body={page.html} />
+    <DefaultPageTemplate {...page.frontmatter} body={page.html} 
+      topics={topics}
+    />
   </Layout>
 )
 export default DefaultPage
@@ -58,5 +83,19 @@ export const pageQuery = graphql`
         featuredImage
       }
     }
+    topics: allMongodbForumTopic(limit: 10, sort: {order: DESC, fields: time}) {
+    edges {
+      node {
+        question
+        title
+        id
+        picture
+        time
+        nickname
+        owner_id
+        userEmail
+      }
+    }
+  }
   }
 `

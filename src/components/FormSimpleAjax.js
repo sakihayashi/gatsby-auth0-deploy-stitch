@@ -78,7 +78,7 @@ class Form extends React.Component {
   }
 
   render() {
-    const { name, subject, action } = this.props
+    const { name } = this.props
 
     return (
       <Fragment>

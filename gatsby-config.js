@@ -7,6 +7,12 @@ module.exports = {
   },
   plugins: [
     {
+      resolve: `gatsby-source-mongodb`,
+      options: { dbName: `forum`, 
+                 collection: `topic`, 
+                 connectionString: `mongodb+srv://SakiHayashi:CodeImmersives1215@cluster0-3q0yo.mongodb.net/test?retryWrites=true&w=majority` },
+    },
+    {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
         trackingId: "UA-143324692-1",

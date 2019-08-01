@@ -11,23 +11,8 @@ import {
     getCurrentUser,
   } from "./../stitch/authentication";
 
-  import { isAuthenticated, getProfile } from "../utils/auth"
-
-
-
-function callMe() {
-    // loginAnonymous();
-    // this.app = Stitch.initializeDefaultAppClient(this.APP_ID);
-    // Get a MongoDB Service Client
-    // This is used for logging in and communicating with Stitch
-//     const appDefault = Stitch.hasAppClient(APP_ID)
-//   ? Stitch.getAppClient(APP_ID)
-//   : Stitch.initializeAppClient(APP_ID);
-  
-//   console.log('app from stitch folder: ', appDefault);
-//   return appDefault
-
-}
+import { isAuthenticated, getProfile } from "../utils/auth"
+import './Form.css'
 
 
 class PostTopic extends Component {
@@ -40,10 +25,7 @@ class PostTopic extends Component {
         value: "",
         stitch: null
       };
-    //   this.handleChange = this.handleChange.bind(this);
-    //   this.displayTodos = this.displayTodos.bind(this);
-    //   this.addTodo = this.addTodo.bind(this);
-    // this.state.stitch = callMe();
+  
     }
     
     componentDidMount() {
@@ -63,45 +45,39 @@ class PostTopic extends Component {
     createTopic = (event) => {
       loginAnonymous();
       let user = getCurrentUser();
+      let userAuth0 = getProfile();
       event.preventDefault();
 
-      console.log(this.state)
       console.log('this.stitch: ', this.state.stitch);
       console.log('user: ', user);
       console.log('isAuthenticated: ', isAuthenticated());
-      console.log('getProfile : ', getProfile());
-      
+      console.log('userAuth0 : ', userAuth0);
+      console.log('userAuth0.email : ', userAuth0.email);
+      console.log('userAuth0.updated_at : ', userAuth0.updated_at);
       
       const mongodb = this.state.stitch.getServiceClient(
         RemoteMongoClient.factory,
         "mongodb-atlas"
       );
 
-        let titleDB = mongodb.db("forum").collection("title");
-        let questionDB = mongodb.db("forum").collection("question");
         let topicDB = mongodb.db("forum").collection("topic");
-        console.log('db: ', titleDB);
-        console.log('this.state.stitch.auth.user.id: ', this.state.stitch.auth.user.id);
-        
-        
-        titleDB.insertOne({
-            owner_id: this.state.stitch.auth.user.id,
-            title: this.state.title,
-            })
-            .then(console.log('success save'))
-            .catch(console.error);
-
-        questionDB.insertOne({
-            owner_id: this.state.stitch.auth.user.id,
-            question: this.state.question,
-            })
-            .then(console.log('success save'))
-            .catch(console.error);
-
-        topicDB.insertOne({
-            owner_id: this.state.stitch.auth.user.id,
-            topic: { title: this.state.title, question: this.state.question }
-            })
+        const newTopic = {
+            "owner_id": this.state.stitch.auth.user.id,
+            "title": this.state.title,
+            "question": this.state.question,
+            "userEmail": userAuth0.email,
+            "time": userAuth0.updated_at,
+            "picture": userAuth0.picture,
+            "nickname": userAuth0.nickname
+          };
+        //   owner_id: this.state.stitch.auth.user.id,
+        //   topic: { title: this.state.title, 
+        //            question: this.state.question,
+        //            userEmail: userAuth0.email,
+        //            time: userAuth0.updated_at,
+        //            picture: userAuth0.picture]
+        //           }
+        topicDB.insertOne(newTopic)
             .then(console.log('success save'))
             .catch(console.error);
     }
@@ -125,28 +101,30 @@ class PostTopic extends Component {
         <div className="App">
           <h3>Create a topic</h3>
           <hr />
-          <p>Add a Topic:</p>
-          <form onSubmit={this.createTopic}>
-            <label>
+          <form onSubmit={this.createTopic}　className="Form">
+            <label　className="Form--Label">
               <input
                 type="text"
+                className="Form--Input Form--InputText"
                 // value={this.state.value}
                 name="title"
-                placeholder="title"
                 onChange={this.handleInput}
               />
+              <span>質問タイトル</span>
             </label>
-            <label>
-              <input
-                type="text"
-                // value={this.state.value}
+            <label className="Form--Label">
+              <textarea 
+                rows="8"
                 name="question"
-                placeholder="write question here"
+                placeholder="質問内容を記入してください。"
                 onChange={this.handleInput}
+                className="Form--Input Form--Textarea Form--InputText"
               />
+              <span>質問内容</span>
             </label>
             <input type="submit" value="Submit" />
           </form>
+
 
 
         </div>
