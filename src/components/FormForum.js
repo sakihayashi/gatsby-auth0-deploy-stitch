@@ -8,7 +8,7 @@ import app from '../stitch/app'
 
 import './Form.css'
 
-const RECAPTCHA_KEY = '6LdwXLAUAAAAACEKolwBLmjPBSWJckkfUjoiMLaY';
+const RECAPTCHA_KEY = '6LcA0bAUAAAAAErm81shnoZY3NFzdvVqNrG0j_zk';
 
 function encode(data) {
   return Object.keys(data)
@@ -249,11 +249,7 @@ class FormForum extends React.Component {
             />
             <span>ニュースレターを受け取る</span>
           </label>
-          {/* <Recaptcha
-            ref="recaptcha"
-            sitekey={RECAPTCHA_KEY}
-            onChange={this.handleRecaptcha}
-          /> */}
+
           <input
             className="Button Form--SubmitButton"
             type="submit"
