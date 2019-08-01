@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 
 const TopicDigest = (props) => {
     console.log(props)
-    const { question, title, id, picture, time, nickname, owner_id, userEmail } = props.node;
+    const { question, title, id, picture, time, nickname } = props.node;
 
     return (
         <React.Fragment>

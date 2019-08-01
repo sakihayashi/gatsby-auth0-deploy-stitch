@@ -70,13 +70,7 @@ class PostTopic extends Component {
             "picture": userAuth0.picture,
             "nickname": userAuth0.nickname
           };
-        //   owner_id: this.state.stitch.auth.user.id,
-        //   topic: { title: this.state.title, 
-        //            question: this.state.question,
-        //            userEmail: userAuth0.email,
-        //            time: userAuth0.updated_at,
-        //            picture: userAuth0.picture]
-        //           }
+   
         topicDB.insertOne(newTopic)
             .then(console.log('success save'))
             .catch(console.error);
