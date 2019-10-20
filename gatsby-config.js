@@ -3,9 +3,15 @@ const postcssPresetEnv = require('postcss-preset-env')
 module.exports = {
   siteMetadata: {
     title: 'US Tech News',
-    siteUrl: 'https://friendly-colden-8caf2a.netlify.com'
+    siteUrl: 'https://eager-panini-7c38e7.netlify.com/'
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-disqus`,
+      options: {
+        shortname: `flamingodnews`
+      }
+    },
     {
       resolve: `gatsby-source-mongodb`,
       options: { dbName: `forum`, 

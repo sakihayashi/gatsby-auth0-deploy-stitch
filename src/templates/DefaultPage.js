@@ -5,7 +5,6 @@ import PageHeader from '../components/PageHeader'
 import Content from '../components/Content'
 import Layout from '../components/Layout'
 
-// import FormForum from '../components/FormForum'
 import PostTopic from '../components/PostTopic';
 import TopicDigest from '../components/TopicDigest';
 import { isAuthenticated } from "../utils/auth"
@@ -23,6 +22,7 @@ export const DefaultPageTemplate = ({
 
   console.log('topics: ', topics); 
   console.log('isAuthenticated(): ', isAuthenticated());   
+  
 
   let topicArray = topics.edges.map((topic) => {
        

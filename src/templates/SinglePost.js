@@ -3,10 +3,11 @@ import _get from 'lodash/get'
 import _format from 'date-fns/format'
 import { Link, graphql } from 'gatsby'
 import { ChevronLeft } from 'react-feather'
-
 import Content from '../components/Content'
 import Layout from '../components/Layout'
 import './SinglePost.css'
+import PostTemplate from '../components/PostTemplate'
+
 
 export const SinglePostTemplate = ({
   title,
@@ -14,7 +15,10 @@ export const SinglePostTemplate = ({
   body,
   nextPostURL,
   prevPostURL,
-  categories = []
+  categories = [],
+  postId,
+  postSlug,
+  siteAddress
 }) => (
   <main>
     <article
@@ -63,7 +67,13 @@ export const SinglePostTemplate = ({
           <div className="SinglePost--InnerContent">
             <Content source={body} />
           </div>
-
+          <div className="spacerTopBottom"></div>
+          <hr />
+          <PostTemplate 
+          postSlug={postSlug}
+          postId={postId}
+          siteAddress={siteAddress}
+          />
           <div className="SinglePost--Pagination">
             {prevPostURL && (
               <Link
@@ -89,7 +99,7 @@ export const SinglePostTemplate = ({
 )
 
 // Export Default SinglePost for front-end
-const SinglePost = ({ data: { post, allPosts } }) => {
+const SinglePost = ({ data: { post, allPosts, siteinfo } }) => {
   const thisEdge = allPosts.edges.find(edge => edge.node.id === post.id)
   return (
     <Layout
@@ -99,6 +109,9 @@ const SinglePost = ({ data: { post, allPosts } }) => {
       <SinglePostTemplate
         {...post}
         {...post.frontmatter}
+        siteAddress={siteinfo}
+        postSlug={post.frontmatter.title}
+        postId={post.id}
         body={post.html}
         nextPostURL={_get(thisEdge, 'next.fields.slug')}
         prevPostURL={_get(thisEdge, 'previous.fields.slug')}
@@ -156,5 +169,12 @@ export const pageQuery = graphql`
         }
       }
     }
+    siteinfo: allSite(limit: 1) {
+        nodes {
+          siteMetadata {
+            siteUrl
+          }
+        }
+      }
   }
 `

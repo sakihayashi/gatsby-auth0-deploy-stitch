@@ -245,3 +245,7 @@ blockquote {
   align-items: center;
   justify-content: center;
 }
+
+.spacerTopBottom{
+  margin: 80px 0;
+}
